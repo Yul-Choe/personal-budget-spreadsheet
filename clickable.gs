@@ -9,12 +9,10 @@ function onSelectionChange(e) {
   const cell = e.range;
   const text = cell.getValue().toString();
 
-
   // Do not run outside the sheet "Flow"
   if (cell.getSheet().getName() !== "Flow") {
     return;
   }//if
-  
 
   // If cell starts with "Today", replace with current date
   if (text.startsWith("Today")) {
