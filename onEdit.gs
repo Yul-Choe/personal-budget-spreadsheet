@@ -1,9 +1,24 @@
-// Google Sheet's special function that gets called when a cell is edited
+/** Google Sheet's special function that gets called when a cell is edited
+ * 
+ * @param {Event} e - edit event
+ * @returns {void}
+ */
 function onEdit(e) {
   // Do not run if the maintenance mode is on
   if (isUnderMaintenance()) {
     return;
   }//if
+
+  clickableDate(e);
+}//onEdit
+
+/**
+ * Put the date of transaction using a drop-down menu instead of typing
+ * 
+ * @param {Event} e - edit event
+ * @returns {void}
+ */
+function clickableDate(e) {
 
   // Get cell values
   const cell = e.range;
@@ -24,7 +39,7 @@ function onEdit(e) {
     setToDate(cell, DATE_OFFSETS[text]);
     cell.clearDataValidations();
   }//if
-}//onEdit
+}//clickableDate
 
 // Set the cell value to the date of today, or some number of days before today
 // Saves typing the date of spending, earning, or transaction
