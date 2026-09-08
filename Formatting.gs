@@ -9,22 +9,26 @@ function IS_IN_CYCLE(dateString, monthString, frequencyString) {
 	if (Array.isArray(dateString)) {
 		const returnArray = new Array();
 
-		for (let x in dateString) {
-			returnArray.push(IS_IN_CYCLE(x, monthString, frequencyString));
+		for (let row of dateString) {
+			returnArray.push(IS_IN_CYCLE(row[0], monthString, frequencyString));
 		}
 
 		return returnArray;
 	}
 	
+	if (dateString === "-" || !dateString) {
+		return false;
+	}
+
 	const month = convertMonthStringToNumber(monthString);
 	const frequency = CONVERT_FREQUENCY_TO_NUMBER(frequencyString);
 	const date = new Date(dateString);
 	const year = date.getFullYear();
 
-	const firstMonthOfCycle = month - month % frequency
+	const firstMonthOfCycle = month - month % frequency;
 
 	const startDate = new Date(year, firstMonthOfCycle, 1, 0, 0, 0, 0);
-	const endDate = new Date(year, firstMonthOfCycle + frequency, 0, 23, 59, 59);
+	const endDate = new Date(year, firstMonthOfCycle + frequency, 0, 23, 59, 59, 999);
 
 	return date >= startDate && date <= endDate;
 }
@@ -38,7 +42,7 @@ function CONVERT_FREQUENCY_TO_NUMBER(frequencyString) {
       return 1;
     case "Quarterly":
       return 3;
-    case "Bi-Yearly":
+    case "Bi-yearly":
       return 6;
     case "Yearly":
       return 12;
