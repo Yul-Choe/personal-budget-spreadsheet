@@ -18,10 +18,5 @@ function onEdit(e) {
  * @returns {void}
  */
 function onOpen(e) {
-	addFrequencyPerDepartment()
+	mergeMonthsByFrequency(e)
 }//onOpen
-
-// Check if the maintenance mode is on
-function isUnderMaintenance() {
-  return SpreadsheetApp.getActiveSpreadsheet().getSheetByName("Settings").getRange("B1").getValue();
-}//isUnderMaintenance

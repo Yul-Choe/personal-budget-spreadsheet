@@ -1,5 +1,5 @@
-function addFrequencyPerDepartment() {
-    
+function mergeMonthsByFrequency(e) {
+	
 }
 
 /**
