@@ -6,6 +6,16 @@ function addFrequencyPerDepartment() {
  * @customfunction
  */
 function IS_IN_CYCLE(dateString, monthString, frequencyString) {
+	if (Array.isArray(dateString)) {
+		const returnArray = new Array();
+
+		for (let x in dateString) {
+			returnArray.push(IS_IN_CYCLE(x, monthString, frequencyString));
+		}
+
+		return returnArray;
+	}
+	
 	const month = convertMonthStringToNumber(monthString);
 	const frequency = CONVERT_FREQUENCY_TO_NUMBER(frequencyString);
 	const date = new Date(dateString);
@@ -13,8 +23,8 @@ function IS_IN_CYCLE(dateString, monthString, frequencyString) {
 
 	const firstMonthOfCycle = month - month % frequency
 
-	const startDate = new Date(year, firstMonthOfCycle, 1);
-	const endDate = new Date(year, firstMonthOfCycle + frequency, 0);
+	const startDate = new Date(year, firstMonthOfCycle, 1, 0, 0, 0, 0);
+	const endDate = new Date(year, firstMonthOfCycle + frequency, 0, 23, 59, 59);
 
 	return date >= startDate && date <= endDate;
 }
