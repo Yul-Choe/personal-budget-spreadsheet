@@ -5,7 +5,6 @@
  * @returns {void}
  */
 function clickableDate(e) {
-
   // Get cell values
   const cell = e.range;
   const text = cell.getValue().toString();
