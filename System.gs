@@ -1,8 +1,8 @@
 // Check if the maintenance mode is on
 function isUnderMaintenance() {
-	maintenance = cellPositionDict[maintenance];
+	maintenance = cellPositionDict["maintenance"];
 
-  return SpreadsheetApp.getActiveSpreadsheet().getSheetByName(maintenance[sheet]).getRange(maintenance[cell]).getValue();
+  return SpreadsheetApp.getActiveSpreadsheet().getSheetByName(maintenance["sheet"]).getRange(maintenance["cell"]).getValue();
 }//isUnderMaintenance
 
 // Dictionary of all important cell positions
