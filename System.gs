@@ -7,7 +7,10 @@ function isUnderMaintenance() {
 
 // Dictionary of all important cell positions
 const cellPositionDict = {
-	maintenance: logPosition("Settings", "B1")
+	maintenance: logPosition("Settings", "B1"),
+	firstDepartment: logPosition("Settings", "D3"),
+	topLeftSummary: logPosition("Summary", "B3"),
+	firstFrequency: logPosition("Plan", "B3")
 }
 
 // Log a cell position into a dictionary

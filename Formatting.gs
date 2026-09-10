@@ -1,5 +1,22 @@
-function mergeMonthsByFrequency(e) {
-	
+function mergeMonthsByFrequency() {
+
+}
+
+function countDepartments() {
+	const currentSheet = cellPositionDict["firstDepartment"]["sheet"];
+	const currentCell = cellPositionDict["firstDepartment"]["cell"];
+
+	const currentColumn = currentCell[0];
+	let currentRow = Number(currentCell.substring(1));
+	let count = 0;
+
+	while (SpreadsheetApp.getActiveSpreadsheet().getSheetByName(currentSheet).getRange(currentCell).getValue()) {
+		count++;
+		currentRow++;
+		currentCell = currentColumn + currentRow;
+	}
+
+	return count;
 }
 
 /**
