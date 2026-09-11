@@ -18,5 +18,5 @@ function onEdit(e) {
  * @returns {void}
  */
 function onOpen(e) {
-	mergeMonthsByFrequency(e)
+	mergeMonthsByPeriod()
 }//onOpen

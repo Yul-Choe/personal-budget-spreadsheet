@@ -1,19 +1,30 @@
-function mergeMonthsByFrequency() {
+function mergeMonthsByPeriod() {
+	const periodCell = pullCellPosition("firstPeriod");
+	const mergeCell = pullCellPosition("topLeftSummary");
+
+	const departments = countDepartments();
+
+	let count = 0;
+
+	while (count < departments) {
+		period = CONVERT_PERIOD_TO_NUMBER(SpreadsheetApp.getActiveSpreadsheet().getSheetByName(periodCell["sheet"]).getRange(periodCell["row"] + count, periodCell["column"].getValue()))
+
+		for (let i = 0; i < 12 / period; i++)
+			SpreadsheetApp.getActiveSpreadsheet().getSheetByName(mergeCell["sheet"]).getRange(mergeCell["row"] + count, head, mergeCell["row"] + count, tail).merge()
+		count++;
+	}
+
+	SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange("P3:R3").merge()
 
 }
 
 function countDepartments() {
-	const currentSheet = cellPositionDict["firstDepartment"]["sheet"];
-	const currentCell = cellPositionDict["firstDepartment"]["cell"];
-
-	const currentColumn = currentCell[0];
-	let currentRow = Number(currentCell.substring(1));
+	const currentCell = pullCellPosition("firstDepartment");
 	let count = 0;
 
-	while (SpreadsheetApp.getActiveSpreadsheet().getSheetByName(currentSheet).getRange(currentCell).getValue()) {
+	while (SpreadsheetApp.getActiveSpreadsheet().getSheetByName(currentCell["sheet"]).getRange(currentCell["row"], currentCell["column"]).getValue()) {
 		count++;
-		currentRow++;
-		currentCell = currentColumn + currentRow;
+		currentCell["row"]++;
 	}
 
 	return count;
@@ -22,12 +33,12 @@ function countDepartments() {
 /**
  * @customfunction
  */
-function IS_IN_CYCLE(dateString, monthString, frequencyString) {
+function IS_IN_CYCLE(dateString, monthString, periodString) {
 	if (Array.isArray(dateString)) {
 		const returnArray = new Array();
 
 		for (let row of dateString) {
-			returnArray.push(IS_IN_CYCLE(row[0], monthString, frequencyString));
+			returnArray.push(IS_IN_CYCLE(row[0], monthString, periodString));
 		}
 
 		return returnArray;
@@ -38,14 +49,14 @@ function IS_IN_CYCLE(dateString, monthString, frequencyString) {
 	}
 
 	const month = convertMonthStringToNumber(monthString);
-	const frequency = CONVERT_FREQUENCY_TO_NUMBER(frequencyString);
+	const period = CONVERT_PERIOD_TO_NUMBER(periodString);
 	const date = new Date(dateString);
 	const year = date.getFullYear();
 
-	const firstMonthOfCycle = month - month % frequency;
+	const firstMonthOfCycle = month - month % period;
 
 	const startDate = new Date(year, firstMonthOfCycle, 1, 0, 0, 0, 0);
-	const endDate = new Date(year, firstMonthOfCycle + frequency, 0, 23, 59, 59, 999);
+	const endDate = new Date(year, firstMonthOfCycle + period, 0, 23, 59, 59, 999);
 
 	return date >= startDate && date <= endDate;
 }
@@ -53,8 +64,8 @@ function IS_IN_CYCLE(dateString, monthString, frequencyString) {
 /**
  * @customfunction
  */
-function CONVERT_FREQUENCY_TO_NUMBER(frequencyString) {
-  switch (frequencyString) {
+function CONVERT_PERIOD_TO_NUMBER(periodString) {
+  switch (periodString) {
     case "Monthly":
       return 1;
     case "Quarterly":
