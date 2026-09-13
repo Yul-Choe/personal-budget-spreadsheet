@@ -4,18 +4,14 @@ function mergeMonthsByPeriod() {
 
 	const departments = countDepartments();
 
-	let count = 0;
+	for (let row = 0; row < departments; row++) {
+		period = CONVERT_PERIOD_TO_NUMBER(SpreadsheetApp.getActiveSpreadsheet().getSheetByName(periodCell["sheet"]).getRange(periodCell["row"] + row, periodCell["column"]).getValue())
 
-	while (count < departments) {
-		period = CONVERT_PERIOD_TO_NUMBER(SpreadsheetApp.getActiveSpreadsheet().getSheetByName(periodCell["sheet"]).getRange(periodCell["row"] + count, periodCell["column"].getValue()))
-
-		for (let i = 0; i < 12 / period; i++)
-			SpreadsheetApp.getActiveSpreadsheet().getSheetByName(mergeCell["sheet"]).getRange(mergeCell["row"] + count, head, mergeCell["row"] + count, tail).merge()
-		count++;
+		for (let i = 0; i < 12 / period; i++) {
+			const head = mergeCell["column"] + i * period;
+			SpreadsheetApp.getActiveSpreadsheet().getSheetByName(mergeCell["sheet"]).getRange(mergeCell["row"] + row, head, 1, period).merge()
+		}
 	}
-
-	SpreadsheetApp.getActiveSpreadsheet().getActiveSheet().getRange("P3:R3").merge()
-
 }
 
 function countDepartments() {

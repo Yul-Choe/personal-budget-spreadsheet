@@ -14,11 +14,6 @@ function clickableDate(e) {
     return;
   }//if
 
-  const DATE_OFFSETS = {
-    "Today": 0,
-    "Yesterday": 1
-  };
-
   // If cell is "Today" or "Yesterday", replace with the corresponding date
   if (text in DATE_OFFSETS) {
     setToDate(cell, DATE_OFFSETS[text]);
@@ -28,9 +23,12 @@ function clickableDate(e) {
 
 // Set the cell value to the date of today, or some number of days before today
 // Saves typing the date of spending, earning, or transaction
-function setToDate(cell, daysBack) {
+function setToDate(cell, dateOffset) {
+  const timezone = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(cellPositionDict["timezone"]["sheet"]).getRange(cellPositionDict["timezone"]["cell"]).getValue()
+  
   const today = new Date();
-  today.setDate(today.getDate() - daysBack);
+  today.setDate(today.getDate() + dateOffset);
+  today.setHours(today.getHours() + TIMEZONE_OFFSET[timezone])
 
   cell.setValue(today.toISOString().split("T",1));
 }//setToDate
