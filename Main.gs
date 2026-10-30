@@ -9,7 +9,25 @@ function onEdit(e) {
     return;
   }//if
 
-  clickableDate(e);
+  const cell = e.range;
+  const sheet = cell.getSheet().getName()
+
+  // Do not run outside the sheet "Flow"
+  if (sheet === "Flow") {
+    clickableDate(cell);
+  } else if (sheet === "Settings") {
+    const column = range.getColumn();
+
+    if (column === pullCellPosition("firstDepartment")["column"]) {
+      insertRow() //plan
+      insertRow() //summary
+      insertPeriod()
+    } else if (column === pullCellPosition("firstSource")["column"]) {
+      insertRow()
+      insertPeriod()
+    }
+  }
+  
 }//onEdit
 
 /** Google Sheet's special function that gets called when a document is opened or refreshed
@@ -18,5 +36,9 @@ function onEdit(e) {
  * @returns {void}
  */
 function onOpen(e) {
+  if (isUnderMaintenance()) {
+    return;
+  }//if
+
 	mergeMonthsByPeriod()
 }//onOpen

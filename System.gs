@@ -9,6 +9,7 @@ function isUnderMaintenance() {
 const cellPositionDict = {
 	maintenance: logPosition("Settings", "B1"),
 	firstDepartment: logPosition("Settings", "D3"),
+	firstSource: logPosition("Settings", "E3"),
 	topLeftSummary: logPosition("Summary", "B3"),
 	firstPeriod: logPosition("Plan", "B3"),
 	timezone: logPosition("Settings", "G2")
@@ -18,7 +19,7 @@ const cellPositionDict = {
 function logPosition(sheet, cell) {
   return {
    	sheet: sheet,
-	cell: cell
+		cell: cell
   }
 }
 

@@ -4,15 +4,9 @@
  * @param {Event} e - edit event
  * @returns {void}
  */
-function clickableDate(e) {
-  // Get cell values
-  const cell = e.range;
+function clickableDate(cell) {
+  // Get cell value
   const text = cell.getValue().toString();
-
-  // Do not run outside the sheet "Flow"
-  if (cell.getSheet().getName() !== "Flow") {
-    return;
-  }//if
 
   // If cell is "Today" or "Yesterday", replace with the corresponding date
   if (text in DATE_OFFSETS) {
@@ -30,5 +24,9 @@ function setToDate(cell, dateOffset) {
   today.setDate(today.getDate() + dateOffset);
   today.setHours(today.getHours() + TIMEZONE_OFFSET[timezone])
 
-  cell.setValue(today.toISOString().split("T",1));
+  const year = today.getFullYear();
+  const month = today.getMonth();
+  const day = today.getDate();
+
+  cell.setValue(`${year}/${month}/${day}`);
 }//setToDate

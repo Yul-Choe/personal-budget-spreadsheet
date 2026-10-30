@@ -26,6 +26,10 @@ function countDepartments() {
 	return count;
 }
 
+function insertRow() {
+	
+}
+
 /**
  * @customfunction
  */
