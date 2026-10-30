@@ -29,41 +29,33 @@ function countDepartments() {
 function insertRow() {
 	
 }
-
 /**
- * @customfunction
- */
-function IS_IN_CYCLE(dateString, monthString, periodString) {
-	if (Array.isArray(dateString)) {
-		const returnArray = new Array();
-
-		for (let row of dateString) {
-			returnArray.push(IS_IN_CYCLE(row[0], monthString, periodString));
-		}
-
-		return returnArray;
-	}
-	
-	if (dateString === "-" || !dateString) {
-		return false;
-	}
-
+function IS_IN_CYCLE(dateInput, monthString, periodString) {
+	dates = Array.isArray(dateInput) ? dateInput : [[dateInput]]
 	const month = convertMonthStringToNumber(monthString);
 	const period = CONVERT_PERIOD_TO_NUMBER(periodString);
-	const date = new Date(dateString);
-	const year = date.getFullYear();
+	const year = new Date(dates[0][0]).getFullYear();
 
-	const firstMonthOfCycle = month - month % period;
+	result = []
 
-	const startDate = new Date(year, firstMonthOfCycle, 1, 0, 0, 0, 0);
-	const endDate = new Date(year, firstMonthOfCycle + period, 0, 23, 59, 59, 999);
+	for (let i = 0; i < dates[0].length; i++) {
+		if (dates[0][i] === "-" || !dates[0][i]) {
+			result.push(false);
+		} else{
+			const date = new Date(dates[0][i]);
 
-	return date >= startDate && date <= endDate;
+			const firstMonthOfCycle = month - month % period;
+			const startDate = new Date(year, firstMonthOfCycle, 1, 0, 0, 0, 0);
+			const endDate = new Date(year, firstMonthOfCycle + period, 0, 23, 59, 59, 999);
+
+			result.push(date >= startDate && date <= endDate);
+		}
+	}
+
+	return result;
 }
 
-/**
- * @customfunction
- */
+
 function CONVERT_PERIOD_TO_NUMBER(periodString) {
   switch (periodString) {
     case "Monthly":
@@ -105,3 +97,4 @@ function convertMonthStringToNumber(monthString) {
 			return 11;
 	}
 }
+*/
