@@ -4,11 +4,6 @@
  * @returns {void}
  */
 function onEdit(e) {
-  // Do not run if the maintenance mode is on
-  if (isUnderMaintenance()) {
-    return;
-  }//if
-
   const cell = e.range;
   const sheet = cell.getSheet().getName()
 
@@ -36,9 +31,5 @@ function onEdit(e) {
  * @returns {void}
  */
 function onOpen(e) {
-  if (isUnderMaintenance()) {
-    return;
-  }//if
-
 	mergeMonthsByPeriod()
 }//onOpen

@@ -2,7 +2,7 @@ function mergeMonthsByPeriod() {
 	const periodCell = pullCellPosition("firstPeriod");
 	const mergeCell = pullCellPosition("topLeftSummary");
 
-	const departments = countDepartments();
+	const departments = countItems("firstDepartment");
 	const periods = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(periodCell["sheet"]).getRange(periodCell["row"], periodCell["column"], departments,1).getValues()
 	SpreadsheetApp.getActiveSpreadsheet().getSheetByName(mergeCell["sheet"]).getRange(mergeCell["row"], mergeCell["column"], departments, 12).breakApart()
 
@@ -16,13 +16,14 @@ function mergeMonthsByPeriod() {
 	}
 }
 
-function countDepartments() {
-	const currentCell = pullCellPosition("firstDepartment");
+function countItems(cellName) {
+	const currentCell = pullCellPosition(cellName);
 	let count = 0;
 
-	while (SpreadsheetApp.getActiveSpreadsheet().getSheetByName(currentCell["sheet"]).getRange(currentCell["row"], currentCell["column"]).getValue()) {
+	columnValues = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(currentCell["sheet"]).getRange(currentCell["row"], currentCell["column"],30,1).getValues()
+
+	while (columnValues[count][0]) {
 		count++;
-		currentCell["row"]++;
 	}
 
 	return count;
@@ -32,80 +33,9 @@ function insertRow() {
 	
 }
 
-
 const periodDict = {
     "Monthly": 1,
     "Quarterly": 3,
     "Bi-yearly": 6,
 	"Yearly": 12
-  }
-
-/**
-function IS_IN_CYCLE(dateInput, monthString, periodString) {
-	dates = Array.isArray(dateInput) ? dateInput : [[dateInput]]
-	const month = convertMonthStringToNumber(monthString);
-	const period = CONVERT_PERIOD_TO_NUMBER(periodString);
-	const year = new Date(dates[0][0]).getFullYear();
-
-	result = []
-
-	for (let i = 0; i < dates[0].length; i++) {
-		if (dates[0][i] === "-" || !dates[0][i]) {
-			result.push(false);
-		} else{
-			const date = new Date(dates[0][i]);
-
-			const firstMonthOfCycle = month - month % period;
-			const startDate = new Date(year, firstMonthOfCycle, 1, 0, 0, 0, 0);
-			const endDate = new Date(year, firstMonthOfCycle + period, 0, 23, 59, 59, 999);
-
-			result.push(date >= startDate && date <= endDate);
-		}
-	}
-
-	return result;
 }
-
-
-function CONVERT_PERIOD_TO_NUMBER(periodString) {
-  switch (periodString) {
-    case "Monthly":
-      return 1;
-    case "Quarterly":
-      return 3;
-    case "Bi-yearly":
-      return 6;
-    case "Yearly":
-      return 12;
-  }
-}
-
-function convertMonthStringToNumber(monthString) {
-	switch (monthString) {
-		case "Jan":
-			return 0;
-		case "Feb":
-			return 1;
-		case "Mar":
-			return 2;
-		case "Apr":
-			return 3;
-		case "May":
-			return 4;
-		case "Jun":
-			return 5;
-		case "Jul":
-			return 6;
-		case "Aug":
-			return 7;
-		case "Sep":
-			return 8;
-		case "Oct":
-			return 9;
-		case "Nov":
-			return 10;
-		case "Dec":
-			return 11;
-	}
-}
-*/
