@@ -12,9 +12,9 @@ function mergeMonthsByPeriod() {
 		for (let i = 0; i < 12 / period; i++) {
 			const head = mergeCell["column"] + i * period;
 			SpreadsheetApp.getActiveSpreadsheet().getSheetByName(mergeCell["sheet"]).getRange(mergeCell["row"] + row, head, 1, period).merge()
-		}
-	}
-}
+		}//for
+	}//for
+}//mergeMonthsByPeriod()
 
 function countItems(cellName) {
 	const currentCell = pullCellPosition(cellName);
@@ -24,14 +24,10 @@ function countItems(cellName) {
 
 	while (columnValues[count][0]) {
 		count++;
-	}
+	}//while
 
 	return count;
-}
-
-function insertRow() {
-	
-}
+}//countItems()
 
 const periodDict = {
     "Monthly": 1,
