@@ -3,9 +3,11 @@ function mergeMonthsByPeriod() {
 	const mergeCell = pullCellPosition("topLeftSummary");
 
 	const departments = countDepartments();
+	const periods = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(periodCell["sheet"]).getRange(periodCell["row"], periodCell["column"], departments,1).getValues()
+	SpreadsheetApp.getActiveSpreadsheet().getSheetByName(mergeCell["sheet"]).getRange(mergeCell["row"], mergeCell["column"], departments, 12).breakApart()
 
 	for (let row = 0; row < departments; row++) {
-		period = CONVERT_PERIOD_TO_NUMBER(SpreadsheetApp.getActiveSpreadsheet().getSheetByName(periodCell["sheet"]).getRange(periodCell["row"] + row, periodCell["column"]).getValue())
+		period = periodDict[periods[row][0]]
 
 		for (let i = 0; i < 12 / period; i++) {
 			const head = mergeCell["column"] + i * period;
@@ -29,6 +31,15 @@ function countDepartments() {
 function insertRow() {
 	
 }
+
+
+const periodDict = {
+    "Monthly": 1,
+    "Quarterly": 3,
+    "Bi-yearly": 6,
+	"Yearly": 12
+  }
+
 /**
 function IS_IN_CYCLE(dateInput, monthString, periodString) {
 	dates = Array.isArray(dateInput) ? dateInput : [[dateInput]]
