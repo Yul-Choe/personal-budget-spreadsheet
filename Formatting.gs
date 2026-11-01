@@ -1,8 +1,8 @@
-function mergeMonthsByPeriod() {
-	const periodCell = pullCellPosition("firstPeriod");
-	const mergeCell = pullCellPosition("topLeftSummary");
+function mergeMonthsByPeriod(periodCellName, mergeCellName, countCellName) {
+	const periodCell = pullCellPosition(periodCellName);
+	const mergeCell = pullCellPosition(mergeCellName);
 
-	const departments = countItems("firstDepartment");
+	const departments = countItems(countCellName);
 	const periods = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(periodCell["sheet"]).getRange(periodCell["row"], periodCell["column"], departments,1).getValues()
 	SpreadsheetApp.getActiveSpreadsheet().getSheetByName(mergeCell["sheet"]).getRange(mergeCell["row"], mergeCell["column"], departments, 12).breakApart()
 

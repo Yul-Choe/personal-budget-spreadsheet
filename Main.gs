@@ -19,5 +19,6 @@ function onEdit(e) {
  * @returns {void}
  */
 function onOpen(e) {
-  mergeMonthsByPeriod()
+  mergeMonthsByPeriod("PlanAllocationPeriod", "PeriodSummary", "SettingsDepartment");
+  mergeMonthsByPeriod("PlanSourcePeriod", "IncomeSummary", "SettingsSource")
 }//onOpen

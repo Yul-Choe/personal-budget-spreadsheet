@@ -1,10 +1,11 @@
 // Dictionary of all important cell positions
 const cellPositionDict = {
-	firstDepartment: logPosition("Settings", "A3"),
-	firstSource: logPosition("Settings", "F3"),
-	topLeftSummary: logPosition("Summary", "B3"),
-	firstPeriod: logPosition("Plan", "B3"),
-  firstAllocationDepartment: logPosition("Plan", "A3")
+	SettingsDepartment: logPosition("Settings", "A3"),
+	SettingsSource: logPosition("Settings", "B3"),
+	PeriodSummary: logPosition("Summary", "B3"),
+  IncomeSummary: logPosition("Summary", "Q3"),
+	PlanAllocationPeriod: logPosition("Plan", "B3"),
+  PlanSourcePeriod: logPosition("Plan", "G3")
 }
 
 // Log a cell position into a dictionary
