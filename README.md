@@ -2,7 +2,7 @@
 I built my own budget spreadsheet using Google Sheets and App Script.
 
 ## Background
-I have been keeping track of my spendings in iCloud Numbers since 2024. As time went, I had more things to spend my money on, and also needed to track my earnings now. I took this as an opportunity to move from iCloud Numbers that glitched often to Google Sheets which I thought was a more powerful tool because of the built-in scripting platfrom called App Script, which allowed making custom functions.
+I have been keeping track of my spendings in iCloud Numbers since 2023. As time went, I had more things to spend my money on, and also needed to track my earnings now. I took this as an opportunity to move from iCloud Numbers that glitched often to Google Sheets which I thought was a more powerful tool because of the built-in scripting platfrom called App Script, which allowed making custom functions.
 
 ## Goals & Framework
 Since money is a major cause of headaches, the top priorities in my budget spreadsheet were intuitiveness, convenience, and simplicity.
